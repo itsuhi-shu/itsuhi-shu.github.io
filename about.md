@@ -12,9 +12,8 @@ You can find the source code for Minima at GitHub:
 
 You can find the source code for Jekyll at GitHub:
 [jekyll][jekyll-organization] /
-[standard_deeplink1](https://app.adjust.com/xlxecy1
-?deep_link=tpp%3A%2F%2Fapp%3Fitem%3D4%26another%3D9)
-[universal_link](https://vqmu.adj.st/?adjust_t=xlxecy1&item=3)
+[standard_deeplink1](https://app.adjust.com/xlxecy1?deep_link=tpp%3A%2F%2Fapp%3Fitem%3D4%26another%3D9)
+[universal_link](https://vqmu.adj.st/?adjust_t=rghp52x&item=3)
 
 
 [jekyll-organization]: https://github.com/jekyll
