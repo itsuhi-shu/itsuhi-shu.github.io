@@ -14,6 +14,7 @@ categories: ios
 
 1. 利用`volumeAvailableCapacityForImportantUsageKey`可以查询到可以使用的储存空间（单位为字节）
 ⬇️苹果官方示例代码
+
 ```swift
 let fileURL = URL(fileURLWithPath:"/")
 do {
@@ -34,6 +35,7 @@ do {
    - 两个assertionFailure的地方，从这个程序设计的角度来看是不可能进入的，参照喵神的文章
 [关于 Swift Error 的分类](https://onevcat.com/2017/10/swift-error-category/)
 这里应为**logic failure**, 用assertionFailure让程序在debug时进入后直接崩溃
+
 ```swift
 struct DataAllocator {
 
@@ -91,8 +93,8 @@ struct DataAllocator {
         return 1024 * multiplier(from: lowerUnit, to: toUnit)
     }
 }
-
-```
+```  
+  
 ```swift
 private func display(capacity: Int64) {
     let total = Int(capacity)
@@ -110,6 +112,7 @@ private func display(capacity: Int64) {
 3. 申请特定大小的内存，然后用写入文件，用FileManager存入sandbox中，已知UInt8大小为一字节...
     - 由于iOS设备内存基本都在3G以下，还有很多1G，所以单次文件储存控制在512M以下
     - 使用for语句需加上autoreleasepool，否则for语句内不会自动释放内存，内存爆炸
+  
 ```swift
 struct DataAllocator {
 
@@ -136,7 +139,8 @@ struct DataAllocator {
 
     ...
 }
-```
+```  
+  
 ```swift
 static func fileStorage(data: [UInt8], namePrefix: String, nameSuffix: String) throws -> String {
     let content = Data(bytes: data, count: data.count)
@@ -147,7 +151,8 @@ static func fileStorage(data: [UInt8], namePrefix: String, nameSuffix: String) t
     try content.write(to: fileURL)
     return fileName
 }
-```
+```  
+  
 ```swift
 private func fulfillStorage() {
     let gigas = infos[1].detail
