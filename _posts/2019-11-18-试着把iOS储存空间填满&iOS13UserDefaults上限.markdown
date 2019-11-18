@@ -32,9 +32,9 @@ do {
 2. 把字节转换为GB, MB, KB
    - Swift可以把函数作为参数传递，所以用一个包含了运算符和乘数的元组作为单位转换函数的返回值
    - enum的类型取为Int，从bit开始rawValue递增，每升一级乘以1024，然后以此为基础设计获得乘数的递归函数
-   - 两个assertionFailure的地方，从这个程序设计的角度来看是不可能进入的，参照喵神的文章
-[关于 Swift Error 的分类](https://onevcat.com/2017/10/swift-error-category/)
-这里应为**logic failure**, 用assertionFailure让程序在debug时进入后直接崩溃
+   - 两个assertionFailure的地方，从这个程序设计的角度来看是不可能进入的，参照喵神的文章  
+    [关于 Swift Error 的分类](https://onevcat.com/2017/10/swift-error-category/)  
+    这里应为**logic failure**, 用assertionFailure让程序在debug时进入后直接崩溃  
 
 ```swift
 struct DataAllocator {
@@ -94,7 +94,7 @@ struct DataAllocator {
     }
 }
 ```  
-  
+---  
 ```swift
 private func display(capacity: Int64) {
     let total = Int(capacity)
@@ -111,7 +111,7 @@ private func display(capacity: Int64) {
 
 3. 申请特定大小的内存，然后用写入文件，用FileManager存入sandbox中，已知UInt8大小为一字节...
     - 由于iOS设备内存基本都在3G以下，还有很多1G，所以单次文件储存控制在512M以下
-    - 使用for语句需加上autoreleasepool，否则for语句内不会自动释放内存，内存爆炸
+    - 使用for语句需加上autoreleasepool，否则for语句内不会自动释放内存，内存爆炸  
   
 ```swift
 struct DataAllocator {
@@ -140,7 +140,7 @@ struct DataAllocator {
     ...
 }
 ```  
-  
+---  
 ```swift
 static func fileStorage(data: [UInt8], namePrefix: String, nameSuffix: String) throws -> String {
     let content = Data(bytes: data, count: data.count)
@@ -152,7 +152,7 @@ static func fileStorage(data: [UInt8], namePrefix: String, nameSuffix: String) t
     return fileName
 }
 ```  
-  
+---  
 ```swift
 private func fulfillStorage() {
     let gigas = infos[1].detail
