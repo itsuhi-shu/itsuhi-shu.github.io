@@ -7,7 +7,8 @@ categories: ios
 
 ![本栖湖观富士山日出](http://upload-images.jianshu.io/upload_images/1971022-fa9d13cefa89464f.jpg)  
 
-## 起因
+## 起因  
+
 新加入了一个项目，翻了两遍代码后也没新的需求进来，
 就这么闲了几天后，负责带我入项目的老哥鬼鬼祟祟地摸到了我座位边上...  
 “是不是没活干？”
@@ -15,7 +16,8 @@ categories: ios
 “刚好第三方库有段日子没更新了，要不你都更到最新版本，适配和测试做一下？”
 “...！”
 
-## RxSwift4->5
+## RxSwift4->5  
+
 由于是个小项目，本身用的第三方库也不多，API基本没有变化，理论上是个轻松的活，
 直到下面一行diff出现
 ```git
@@ -30,7 +32,8 @@ categories: ios
 
 GG……
 
-### Variable被正式废弃并打出`deprecated`警告
+### Variable被正式废弃并打出`deprecated`警告  
+
 根据[RxSwift开发者的post](https://github.com/ReactiveX/RxSwift/issues/1501#issuecomment-347021795)，
 Variable有以下问题
 > - it's not a standard cross platform concept so it's out of place in RxSwift target.
@@ -47,7 +50,8 @@ Variable有以下问题
 而很明显的是，这个项目组的先人们就是上文所述的滥用Variable的开发者。  
 华丽丽地留下了上百条warning
 
-####Variable->BehaviorRelay
+### Variable->BehaviorRelay  
+
 不管是warning内容还是官方文档都确切的注明了用BehaviorRelay来替代Variable，所以没有什么太多需要考虑。  
 Variable和BehaviorRelay唯一的区别是Variable被释放时会发出一个Complete事件，而Bahavior没有。
 万幸的事本项目没有subscribeVariable的`onComplete`的事件，不需要进行结构性调整。
@@ -64,7 +68,8 @@ func setTitle(_ text: Variable<String>) {
 find: `:( *)Variable`  
 replace: `:$1BehaviorRelay`  
 
-#### 2. 修改初始化方法
+#### 2. 修改初始化方法  
+
 ```swift
 final class AlbumListViewModel: ViewModel {
     var myAlbums = Variable<[PhotoAlbum]>([])
@@ -86,7 +91,8 @@ var myAlbums = BehaviorRelay<[PhotoAlbum]>(value: [])
 find: `(var|let)(.*)= Variable(.*)\((.*)\)`
 replace: `$1$2= BehaviorRelay$3\(value: $4\)`
 
-#### 3. 修改赋值
+#### 3. 修改赋值  
+
 ```swift
 myAlbums.value = albumResponse.myAlbums
 memberAlbums.value = albumResponse.memberAlbums
@@ -115,7 +121,8 @@ find: `(.*)\.value = (.*) (in|\{|\(|\.|\[)$`
 find: `(.*)\.value = (.*)$`
 replace: `$1.accept($2)`
 
-#### 4. 修改自增自减
+#### 4. 修改自增自减  
+
 ```swift
 var maxSelectedNum = BehaviorRelay<Int>(value: -1)
 ...
@@ -156,7 +163,8 @@ maxSelectedNum.acceptUpdate(byNewValue: { $0 + 1 }) //隐式return
 find: `(.*)\.value (\+|\-)= ([0-9]+)`
 replace: `$1.acceptUpdate(byNewValue: { \$0 $2 $3 })`
 
-#### 5. 修改泛型为数组，字典等的BehaviorRelay的mutating函数
+#### 5. 修改泛型为数组，字典等的BehaviorRelay的mutating函数  
+
 ```swift
 var selectedMembers = BehaviorRelay<[Member]>(value: [])
 ...
@@ -169,13 +177,15 @@ selectedMembers.value.acceptUpdate(byMutating: { $0.append(member) })
 即可  
 由于这个正则实在不好写，全部手动解决  
 
-#### 6. 添加import
+#### 6. 添加import  
+
 `RxRelay`被包含在`RxCocoa`module中，但没有被包含在`RxSwift`下，  
 而`Variable`是被定义在`RxSwift`中的，  
 所以要在需要的地方添加`import RxRelay`
 
-### 其它
-RxSwift 5的其他更新比如，throttle的参数timeInterval改成了`DispatchTimeInterval`类型等，因为在这个项目中影响较小，修改起来比较方便，在此略过不提
+### 其它  
+
+RxSwift 5的其他更新比如，throttle的参数timeInterval改成了`DispatchTimeInterval`类型等，因为在这个项目中影响较小，修改起来比较方便，在此略过不提  
 RxSwift5的更新可以参考[这篇文章](https://medium.com/@freak4pc/whats-new-in-rxswift-5-f7a5c8ee48e7)
 
 ---
