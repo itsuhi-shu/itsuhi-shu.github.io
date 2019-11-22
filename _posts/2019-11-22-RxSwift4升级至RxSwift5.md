@@ -104,6 +104,7 @@ memberAlbums.value = albumResponse.memberAlbums
 myAlbums.accept(albumResponse.myAlbums)
 ```
 ---
+
 （插入）
 有可能出现换行的情况
 比如
@@ -115,7 +116,9 @@ licenses.value = licenseItems.compactMap { (licenseItem) -> LicenseItem? in
 正则小白的作者不知道怎么将特定结尾的字符串除外，于是先匹配出特殊情况，手动修改。
 以下情况可能出现换行
 find: `(.*)\.value = (.*) (in|\{|\(|\.|\[)$`  
----
+
+---  
+
 用正则replace一次搞定
 找出规律，用以下正则修改
 find: `(.*)\.value = (.*)$`
