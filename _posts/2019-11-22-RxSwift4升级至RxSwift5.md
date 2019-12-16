@@ -26,10 +26,8 @@ categories: ios
 ```
 
 打开项目Build一下  
-![rxswift5_warning.png](https://upload-images.jianshu.io/upload_images/1971022-cdfc498d04b6a81d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-哦嚯？！  
-
+哦嚯？！几百个warning  
+  
 GG……
 
 ### Variable被正式废弃并打出`deprecated`警告  
