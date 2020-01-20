@@ -93,6 +93,7 @@ aObjectMirror.children.forEach { print($0) }
 - collection(array, set, dictionary)反射后其child的`label`为`nil`
   -) array, set的`value`为其各个元素
   -) dictionary的`value`为其单个键值对构成的元组`(key: Hashable, value: Any)`
+  
 ```swift
 let aDictionary = ["key1": "a", "key2": "b", "key3": "c"]
 let aDictionaryMirror = Mirror(reflecting: aDictionary)
@@ -104,7 +105,9 @@ aDictionaryMirror.children.forEach { print($0) }
  (label: nil, value: (key: "key3", value: "c"))
  */
 ```
+
 - tuple的label若有定义标签名则为标签名，若没有则为`.n`（n为该元素的序列）
+
 ```swift
 let aTuple = ("a", labeled: 2, 9)
 let aTupleMirror = Mirror(reflecting: aTuple)
@@ -145,7 +148,7 @@ aEnumWithAssociatedValuesMirror.children.forEach { print($0) }
 /*
  (label: Optional("third"), value: (title: "a", Value: 1, complete: nil))
  */
-```
+```  
 
 ## 利用Mirror反射来自动比较Model
 
