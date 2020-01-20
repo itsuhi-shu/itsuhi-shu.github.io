@@ -93,7 +93,7 @@ aObjectMirror.children.forEach { print($0) }
 - collection(array, set, dictionary)反射后其child的`label`为`nil`
   -) array, set的`value`为其各个元素
   -) dictionary的`value`为其单个键值对构成的元组`(key: Hashable, value: Any)`
-  
+
 ```swift
 let aDictionary = ["key1": "a", "key2": "b", "key3": "c"]
 let aDictionaryMirror = Mirror(reflecting: aDictionary)
@@ -119,7 +119,9 @@ aTupleMirror.children.forEach { print($0) }
  (label: Optional(".2"), value: 9)
  */
 ```
+
 - enum只能反射associated中储存的属性
+  
 ```swift
 enum AEnum {
     case first
@@ -157,6 +159,7 @@ aEnumWithAssociatedValuesMirror.children.forEach { print($0) }
 一开始曾试过用protocol extension来让Model遵循`Equatable`协议，并添加对`==`的实现。但后来突然发现`NSObject`都遵循了`Equatable`协议，且其`==`实现为单纯的地址比较（一部分子类override了）。而protocol extension不能override类已实现的方法。所以只能另外提供一个比较函数。
 
 最终的实现如下：
+
 ```swift
 protocol PropertyEquatable {}
 extension PropertyEquatable {
