@@ -5,8 +5,6 @@ date:   2019-11-22 20:44:44 +0900
 categories: ios
 ---
 
-![本栖湖观富士山日出](http://upload-images.jianshu.io/upload_images/1971022-fa9d13cefa89464f.jpg)  
-
 ## 起因  
 
 新加入了一个项目，翻了两遍代码后也没新的需求进来，
