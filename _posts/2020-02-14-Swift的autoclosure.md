@@ -43,7 +43,7 @@ someFunc(arg)
 1. 鼓励大家使用闭包。闭包的执行是可以控制的，将函数的参数设定为autoclosure后，可以有意识地延迟参数创建的时机。
 2. 让**懒人**可以少打两个括号
 
-##### 官方使用场景：
+#### 官方使用场景：
 
 例：`assert(condition:message:file:line:)`函数
 可以看到condition和message参数都接受一个autoclosure形式的闭包，在不同优化设定的build下，该函数会决定闭包是否执行。
@@ -64,9 +64,9 @@ someFunc(arg)
 public func assert(_ condition: @autoclosure () -> Bool, _ message: @autoclosure () -> String = String(), file: StaticString = #file, line: UInt = #line)
 ```
 
-##### 强行思考了一些其他使用场景
+#### 强行思考了一些其他使用场景
 
-1. 传递的参数可能为某个消耗巨大的函数或者getter方法的返回值，且该参数并不是每次都需要使用
+- 传递的参数可能为某个消耗巨大的函数或者getter方法的返回值，且该参数并不是每次都需要使用
 
 ```swift
 var hugeString: String {
@@ -97,7 +97,7 @@ result is heavy
 */
 ```
 
-2. 在当前的队列中，调用某些函数或者getter方法
+- 在当前的队列中，调用某些函数或者getter方法
 
 ```swift
 var hugeString: String {
@@ -132,7 +132,7 @@ createStringInCurrentQueue(hugeString)
  */
 ```
 
-#### 用上autoclosure的一个极简logger实现
+### 用上autoclosure的一个极简logger实现
 
 1. 使用宏`#file`, `#function`等来构建log
 2. 出于某些我也不知道为啥的原因，不想在生产环境中调用这些宏
